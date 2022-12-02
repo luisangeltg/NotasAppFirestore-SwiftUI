@@ -8,13 +8,34 @@
 import SwiftUI
 
 struct CardView: View {
+    var titulo: String
+    var portada: String
+    
+    var index : FirebaseModel
+    var plataforma : String
+    
+    @StateObject var datos = FirebaseViewModel()
+    
+    //@Binding var isLandscape : Bool
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
-
-struct CardView_Previews: PreviewProvider {
-    static var previews: some View {
-        CardView()
+        VStack(spacing: 20){
+            ImagenFirebase(imageUrl: portada)
+            Text(titulo)
+                .font(.title)
+                .bold()
+                .foregroundColor(.black)
+            Button(action:{
+                //Eliminar datos
+                datos.delete(index: index, plataforma: plataforma)
+            }){
+                Text("Eliminar")
+                    .foregroundColor(.red)
+                    .padding(.vertical, 10)
+                    .padding(.horizontal, 25)
+                    .background(Capsule().stroke(Color.red))
+            }
+        }.padding()
+            .background(Color.white)
+            .cornerRadius(20)
     }
 }
